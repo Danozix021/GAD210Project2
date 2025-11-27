@@ -46,8 +46,6 @@ public class ArenaSwapper : MonoBehaviour
 
     public void WeaponsSpawned()
     {
-        
-
         WeaponSpawner[] spawners = arenas[currentArena].GetComponentsInChildren<WeaponSpawner>(true);
         foreach (var spawner in spawners)
         { 
