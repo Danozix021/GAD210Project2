@@ -1,11 +1,12 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
 public class ArenaSwapper : MonoBehaviour
 {
     public GameObject[] arenas;
-    private int currentArena = 0;
+    public int currentArena = 0;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

@@ -1,10 +1,12 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
 public class RoundManager : MonoBehaviour
 {
     public ArenaSwapper arenaSwapper;
+    public SpawnManager spawnManager;
     private bool roundEnding = false;    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -37,6 +39,8 @@ public class RoundManager : MonoBehaviour
     {
         roundEnding = false;
         arenaSwapper.ArenaSwap();
+
+        spawnManager.ResetRound();
     }
 
 
