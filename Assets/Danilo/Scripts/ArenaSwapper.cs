@@ -9,8 +9,15 @@ public class ArenaSwapper : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        for (int i = 0; i < arenas.Length; i++)
+        {
+            arenas[i].SetActive(false);
+        }
+            
+
         currentArena = Random.Range(0, arenas.Length);
         arenas[currentArena].SetActive(true);
+        WeaponsSpawned();
         Debug.Log("Chosen arena: " + arenas[currentArena].name);
     }
 
@@ -33,6 +40,20 @@ public class ArenaSwapper : MonoBehaviour
         }
 
         arenas[currentArena].SetActive(true);
+        WeaponsSpawned();
         Debug.Log("swapped arena: " + arenas[currentArena].name);
+    }
+
+    public void WeaponsSpawned()
+    {
+        
+
+        WeaponSpawner[] spawners = arenas[currentArena].GetComponentsInChildren<WeaponSpawner>(true);
+        foreach (var spawner in spawners)
+        { 
+            spawner.gameObject.SetActive(true);
+            spawner.SpawnWeapons();
+            Debug.Log("Found spawners: " + spawners.Length);
+        }
     }
 }
