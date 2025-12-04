@@ -33,6 +33,7 @@ public class ArenaSwapper : MonoBehaviour
 
     public void ArenaSwap()
     {
+        ClearWeapons(arenas[currentArena]);
         arenas[currentArena].SetActive(false);
         currentArena++;
         if (currentArena >= arenas.Length)
@@ -53,6 +54,19 @@ public class ArenaSwapper : MonoBehaviour
             spawner.gameObject.SetActive(true);
             spawner.SpawnWeapons();
             Debug.Log("Found spawners: " + spawners.Length);
+        }
+    }
+
+    private void ClearWeapons(GameObject arena)
+    {
+        Transform[] allChildren = arena.GetComponentsInChildren<Transform>(true);
+
+        foreach (Transform child in allChildren)
+        {
+            if (child.CompareTag("Weapon"))
+            {
+                Destroy(child.gameObject);
+            }
         }
     }
 }

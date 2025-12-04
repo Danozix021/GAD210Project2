@@ -26,7 +26,8 @@ public class WeaponSpawner : MonoBehaviour
             if (point == null) continue;
 
             int weaponIndex = Random.Range(0, weapons.Length);
-            Instantiate(weapons[weaponIndex], point.position, point.rotation);
+            GameObject weapon = Instantiate(weapons[weaponIndex], point.position, point.rotation);
+            weapon.transform.SetParent(transform.root);
             Debug.Log("Spawning weapon at: " + point.name);
         }
     }
