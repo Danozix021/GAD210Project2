@@ -16,6 +16,7 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         SpawnPlayers();
+        StartCoroutine(DelaySpawn());
     }
 
     public void SpawnPlayers()
@@ -58,6 +59,12 @@ public class SpawnManager : MonoBehaviour
 
     public void ResetRound()
     {
+        SpawnPlayers();
+    }
+
+    IEnumerator DelaySpawn()
+    { 
+        yield return null;
         SpawnPlayers();
     }
 }
