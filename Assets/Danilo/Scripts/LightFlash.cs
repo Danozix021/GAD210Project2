@@ -8,7 +8,7 @@ public class LightFlash : MonoBehaviour
     public float flashDuration;
     public float flashTimer;
     private bool canFlash;
-    public GameObject lightningFlash;
+    //public GameObject lightningFlash;
     public float lightningFlashDuration;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -31,12 +31,12 @@ public class LightFlash : MonoBehaviour
         while (canFlash == true)
         {
             canFlash = false;
-            lightningFlash.SetActive(true);
+            //lightningFlash.SetActive(true);
             yield return new WaitForSeconds(lightningFlashDuration);
             globalLight.intensity = 1;
             yield return new WaitForSeconds(flashDuration);
             globalLight.intensity = 0;
-            lightningFlash.SetActive(false);
+            //lightningFlash.SetActive(false);
             yield return new WaitForSeconds(flashTimer);
             canFlash = true;
         }
