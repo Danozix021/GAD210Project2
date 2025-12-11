@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6066529947035857639}
   - component: {fileID: 5718820120205811143}
   - component: {fileID: 6268517673778659310}
+  - component: {fileID: -8905589803020908688}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -168,7 +169,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4618fbbbed3e490439b3f8df55f6579b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  moveSpeed: 5
-  dashSpeed: 12
+  moveSpeed: 9
+  dashSpeed: 17
   dashDuration: 0.1
   dashCooldown: 0.5
+  horizontalAxis: Horizontal
+  verticalAxis: Vertical
+  dashButton: Jump
+  inputDeadZone: 0.2
+--- !u!114 &-8905589803020908688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5942917610876824595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3758e920037e62a43a4b34898cc6f64a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player
+  flashLight: {fileID: 0}
+  flashButton: P1_Flash

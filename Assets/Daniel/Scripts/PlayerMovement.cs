@@ -2,75 +2,75 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-
+    [Header("Movement Settings")]
     [SerializeField] private float moveSpeed = 5f;
 
+    [Header("Dash Settings")]
     [SerializeField] private float dashSpeed = 12f;
     [SerializeField] private float dashDuration = 0.2f;
     [SerializeField] private float dashCooldown = 0.5f;
 
-    bool isDashing = false;
-    float dashTimeRemaining = 0f;
-    float dashCooldownTimer = 0f;
-
-    Vector2 lastMoveDirection = Vector2.right;
-    Vector2 dashDirection;
-
+    [Header("Input Settings")]
+    [SerializeField] private string horizontalAxis = "Horizontal";
+    [SerializeField] private string verticalAxis = "Vertical";
+    [SerializeField] private string dashButton = "Jump"; 
+    [SerializeField] private float inputDeadZone = 0.2f; 
 
     private Rigidbody2D rb;
     private Vector2 moveInput;
 
+    private bool isDashing = false;
+    private float dashTimeRemaining = 0f;
+    private float dashCooldownTimer = 0f;
+    private Vector2 lastMoveDirection = Vector2.right;
+    private Vector2 dashDirection;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    private void Update()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
+        ReadMovementInput();
+        HandleDashInputAndTimers();
+    }
+
+    private void ReadMovementInput()
+    {
+        float horizontal = Input.GetAxis(horizontalAxis);
+        float vertical = Input.GetAxis(verticalAxis);
 
         Vector2 inputVector = new Vector2(horizontal, vertical);
 
+      
+        if (inputVector.magnitude < inputDeadZone)
+        {
+            inputVector = Vector2.zero;
+        }
+
         moveInput = inputVector.normalized;
 
-
-
-        if (inputVector.sqrMagnitude > 0.01f)
+        
+        if (moveInput.sqrMagnitude > 0.01f)
         {
             lastMoveDirection = moveInput;
         }
-
-
-        HandleDashInput();
-
     }
 
-    private void FixedUpdate()
+    private void HandleDashInputAndTimers()
     {
-        if (isDashing)
-        {
-            rb.linearVelocity = dashDirection * dashSpeed;
-        }
-        else
-        {
-            rb.linearVelocity = moveInput * moveSpeed;
-        }
-    }
-
-    private void HandleDashInput()
-    {
+      
         if (dashCooldownTimer > 0f)
         {
             dashCooldownTimer -= Time.deltaTime;
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+       
+        if (Input.GetButtonDown(dashButton))
         {
             TryStartDash();
         }
-
 
         if (isDashing)
         {
@@ -84,10 +84,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void TryStartDash()
     {
-
         if (isDashing || dashCooldownTimer > 0f)
             return;
-
 
         if (lastMoveDirection.sqrMagnitude < 0.01f)
             return;
@@ -95,7 +93,18 @@ public class PlayerMovement : MonoBehaviour
         isDashing = true;
         dashTimeRemaining = dashDuration;
         dashCooldownTimer = dashCooldown;
-
         dashDirection = lastMoveDirection;
+    }
+
+    private void FixedUpdate()
+    {
+        if (isDashing)
+        {
+            rb.linearVelocity = dashDirection * dashSpeed;
+        }
+        else
+        {
+            rb.linearVelocity = moveInput * moveSpeed;
+        }
     }
 }
