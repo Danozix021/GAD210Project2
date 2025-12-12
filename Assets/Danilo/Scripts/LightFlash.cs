@@ -5,13 +5,16 @@ using UnityEngine.Rendering.Universal;
 public class LightFlash : MonoBehaviour
 {
     public Light2D globalLight;
-    public float flashDuration;
     public float flashTimer;
     private bool canFlash;
+    [Range(0,1)]
+    public float variance=.1f;
+    private Animator animator;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        animator = GetComponentInChildren<Animator>();
         canFlash = true;
         StartCoroutine(Flash());
     }
@@ -24,16 +27,12 @@ public class LightFlash : MonoBehaviour
 
     IEnumerator Flash()
     {
-        yield return new WaitForSeconds(flashTimer);
 
-        while (canFlash == true)
+        while(1<10)
         {
-            canFlash = false;
-            globalLight.intensity = 1;
-            yield return new WaitForSeconds(flashDuration);
-            globalLight.intensity = 0;
-            yield return new WaitForSeconds(flashTimer);
-            canFlash = true;
+            yield return new WaitForSeconds(flashTimer + flashTimer * Random.Range(-variance, variance));
+            animator.SetTrigger("Strike");
+            
         }
     }
 }

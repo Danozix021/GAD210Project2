@@ -51,7 +51,7 @@ public class SpawnManager : MonoBehaviour
             availableSpawns.RemoveAt(index);
         }
     }
-
+    
     public void ResetRound()
     {
         SpawnPlayers();
