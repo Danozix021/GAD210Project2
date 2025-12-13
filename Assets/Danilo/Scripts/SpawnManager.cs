@@ -46,9 +46,11 @@ public class SpawnManager : MonoBehaviour
             GameObject chosenPrefab = playerPrefabs[i];
 
             GameObject player = Instantiate(chosenPrefab, spawn.position, spawn.rotation);
+
             spawnedPlayers.Add(player);
 
             availableSpawns.RemoveAt(index);
+
         }
     }
     

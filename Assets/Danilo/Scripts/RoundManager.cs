@@ -6,7 +6,9 @@ using UnityEngine.Rendering.Universal;
 public class RoundManager : MonoBehaviour
 {
     public SpawnManager spawnManager;
-    private bool roundEnding = false;    
+    private bool roundEnding = false;
+
+    public List<GameObject> objectsToCheck = new List<GameObject>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -63,12 +65,26 @@ public class RoundManager : MonoBehaviour
         Debug.Log("Cleared weapons. Count: " + weapons.Length);
     }
 
+    private void EnableDisabledObjectsFromList()
+    {
+        foreach (GameObject obj in objectsToCheck)
+        {
+            if (obj != null && !obj.activeSelf)
+            {
+                obj.SetActive(true);
+                Debug.Log("Enabled object: " + obj.name);
+            }
+        }
+    }
+
     public void ResetRound()
     {
         roundEnding = false;
 
         ClearWeapons();
         WeaponsSpawned();
+
+        EnableDisabledObjectsFromList();
 
         if (spawnManager != null)
             spawnManager.ResetRound();
