@@ -107,4 +107,10 @@ public class PlayerMovement : MonoBehaviour
             rb.linearVelocity = moveInput * moveSpeed;
         }
     }
+
+    public Vector2 GetLastMoveDirection()
+    {
+        return lastMoveDirection;
+    }
+
 }
