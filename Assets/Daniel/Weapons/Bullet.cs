@@ -19,12 +19,16 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Prevent hitting the shooter
         if (owner != null && other.transform == owner) return;
 
-        // Example damage interface (we'll add later)
-        // var health = other.GetComponent<Health>();
-        // if (health != null) health.TakeDamage(damage);
+        if (owner != null && other.transform.IsChildOf(owner)) return;
+
+
+        IDamageable damageable = other.GetComponent<IDamageable>();
+        if (damageable != null)
+        {
+            damageable.TakeDamage(damage, owner);
+        }
 
         Destroy(gameObject);
     }
